@@ -13,7 +13,7 @@
             {{ __('Dashboard') }}
         </x-nav-link>
 
-        {{-- <x-nav-link :href="route('company.index')" :active="request()->routeIs('company.*')">
+        <x-nav-link :href="route('company.index')" :active="request()->routeIs('company.*')">
             {{ __('Companies') }}
         </x-nav-link>
 
@@ -31,7 +31,7 @@
 
         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
             {{ __('Users') }}
-        </x-nav-link> --}}
+        </x-nav-link>
         <hr />
         <!-- Logout -->
         <form method="POST" action="{{ route('logout') }}" class="mt-4">
