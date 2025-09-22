@@ -46,7 +46,7 @@
             <tbody>
                 @forelse($companies as $company)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 text-gray-800">{{ $company->name }}</td>
+                        <td class="px-6 py-4 text-gray-800"><a href="{{ route('company.show', $company->id) }}" class="text-indigo-600 hover:text-indigo-900">{{ $company->name }}</a></td>
                         <td class="px-6 py-4 text-gray-800">{{ $company->address }}</td>
                         <td class="px-6 py-4 text-gray-800">{{ $company->industry }}</td>
                         <td class="px-6 py-4 text-gray-800">{{ $company->website }}</td>
