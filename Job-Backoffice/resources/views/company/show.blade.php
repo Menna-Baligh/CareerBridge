@@ -16,6 +16,8 @@
                 <div class="space-y-2 text-gray-700">
                     <p><strong class="text-gray-900">Address:</strong> {{ $company->address }}</p>
                     <p><strong class="text-gray-900">Industry:</strong> {{ $company->industry }}</p>
+                    <p><strong class="text-gray-900">Company-owner:</strong> {{ $company->owner->name }}</p>
+
                     <p>
                         <strong class="text-gray-900">Website:</strong>
                         <a href="{{ $company->website }}" target="_blank"
