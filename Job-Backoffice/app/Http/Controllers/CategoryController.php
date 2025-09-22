@@ -12,9 +12,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = JobCategory::latest();
+        if($request->has('archived')){
+            $query = JobCategory::onlyTrashed();
+        }
         $jobCategories = $query->paginate(10)->onEachSide(1);
         return view('category.index',compact('jobCategories'));
     }
@@ -70,6 +73,14 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = JobCategory::findOrFail($id);
+        $category->delete();
+        return redirect()->route('category.index')->with('success','Category Archived Successfully');
+    }
+    public function restore(string $id)
+    {
+        $category = JobCategory::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('category.index',['archived' => 'true'])->with('success','Category Restored Successfully');
     }
 }
