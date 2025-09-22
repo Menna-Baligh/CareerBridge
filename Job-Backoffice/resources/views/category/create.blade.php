@@ -6,25 +6,40 @@
     </x-slot>
 
     <div class="overflow-x-auto p-6">
-        <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+
+            <h3 class="text-lg font-semibold text-gray-800 mb-6">Add a new category</h3>
+
             <form action="{{ route('category.store') }}" method="post">
                 @csrf
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Category Name</label>
+
+                <!-- Category Name -->
+                <div class="mb-5">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                        Category Name
+                    </label>
                     <input type="text" name="name" id="name"
-                    class="mt-1 block w-full rounded-md shadow-sm sm:text-sm
-                    @error('name') border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
-                    value="{{ old('name') }}">
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
+                        @error('name') border-red-500 focus:ring-red-500 focus:border-red-500 @enderror"
+                        value="{{ old('name') }}" placeholder="Enter category name">
+
                     @error('name')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="flex justify-end space-x-2">
-                <a href="{{ route('category.index') }}" class=" hover:text-gray-700 text-gray-500  py-2 px-4 rounded-md">Cancel</a>
-                <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md font-semibold text-xs uppercase tracking-widest hover:bg-blue-600 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Category</button>
+
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-3">
+                    <a href="{{ route('category.index') }}"
+                        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="px-5 py-2 bg-indigo-600 text-white rounded-lg font-semibold shadow hover:bg-indigo-700 transition">
+                        Add Category
+                    </button>
                 </div>
             </form>
         </div>
     </div>
-
 </x-app-layout>
