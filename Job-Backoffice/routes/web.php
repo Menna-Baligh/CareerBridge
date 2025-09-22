@@ -14,6 +14,7 @@ use App\Http\Controllers\ApplicationController;
 Route::middleware('auth')->group(function () {
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
     Route::resource('company', CompanyController::class);
+    Route::post('company/{company}/restore', [CompanyController::class, 'restore'])->name('company.restore');
     Route::resource('job-vacancy', JobVacancyController::class);
     Route::resource('application', ApplicationController::class);
     Route::resource('category', CategoryController::class);
