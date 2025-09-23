@@ -50,10 +50,17 @@
                     @forelse($companies as $company)
                         <tr class="hover:bg-purple-50 transition">
                             <td class="px-6 py-4 text-gray-800 font-medium">
-                                <a href="{{ route('company.show', $company->id) }}"
+                                @if (request('archived'))
+                                    <span class="text-gray-400">
+                                        {{ $company->name }}
+                                    </span>
+                                @else
+                                    <a href="{{ route('company.show', $company->id) }}"
                                     class="text-purple-600 hover:text-purple-800">
                                         {{ $company->name }}
                                     </a>
+                                @endif
+
                                 </td>
                                 <td class="px-6 py-4 text-gray-600">{{ $company->address }}</td>
                                 <td class="px-6 py-4 text-gray-600">{{ $company->industry }}</td>
