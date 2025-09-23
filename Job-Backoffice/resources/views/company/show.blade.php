@@ -35,7 +35,7 @@
                     class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition flex items-center">
                     ⬅ Back
                 </a>
-                <a href="{{ route('company.edit', $company->id) }}"
+                <a href="{{ route('company.edit', ['company' => $company->id,'redirectToShow'=>true]) }}"
                     class="text-sm px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
                     ✏️ Edit
                 </a>

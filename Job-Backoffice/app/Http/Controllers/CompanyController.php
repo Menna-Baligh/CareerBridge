@@ -11,6 +11,8 @@ use App\Http\Requests\CompanyUpdateRequest;
 
 class CompanyController extends Controller
 {
+    public  $industries = ['IT','Finance','HR','Sales','Marketing','Operations','Legal','Accounting','Procurement','Supply Chain','Technology'];
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $industries = ['IT','Finance','HR','Sales','Marketing','Operations','Legal','Accounting','Procurement','Supply Chain','Technology'];
+        $industries = $this->industries;
         return view('company.create',compact('industries'));
     }
 
@@ -72,7 +74,8 @@ class CompanyController extends Controller
     public function edit(string $id)
     {
         $company = Company::findOrFail($id);
-        return view('company.edit',compact('company'));
+        $industries = $this->industries;
+        return view('company.edit',compact('company','industries'));
     }
 
     /**
@@ -82,7 +85,21 @@ class CompanyController extends Controller
     {
         $validated = $request->validated();
         $company = Company::findOrFail($id);
-        $company->update($validated);
+        $company->update([
+            'name' => $validated['name'],
+            'address' => $validated['address'],
+            'industry' => $validated['industry'],
+            'website' => $validated['website'],
+        ]);
+        $ownerData = [];
+        $ownerData['name'] = $validated['owner_name'];
+        if($validated['password']){
+            $ownerData['password'] = Hash::make($validated['password']);
+        }
+        $company->owner()->update($ownerData);
+        if($request->query('redirectToShow') == true){
+            return redirect()->route('company.show',$company->id)->with('success','company Updated Successfully');
+        }
         return redirect()->route('company.index')->with('success','company Updated Successfully');
     }
 
