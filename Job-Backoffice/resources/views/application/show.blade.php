@@ -41,6 +41,32 @@
                     <p><strong>Type:</strong> {{ $application->jobVacany->type }}</p>
                 </div>
             </div>
+            {{-- Action Buttons --}}
+            <div class="flex justify-end mb-6 space-x-3">
+                {{-- Back Button --}}
+                <a href="{{ url()->previous() }}"
+                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg shadow hover:bg-gray-200 transition">
+                    ⬅️ Back
+                </a>
+
+                {{-- Archive Button --}}
+                <form action="{{ route('application.destroy', $application->id) }}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to archive this application?');">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit"
+                            class="px-4 py-2 bg-red-100 text-red-600 rounded-lg shadow hover:bg-red-200 transition">
+                        🗄️ Archive
+                    </button>
+                </form>
+
+                {{-- Edit Button with query param --}}
+                <a href="{{ route('application.edit', ['application' => $application->id, 'redirectToShow' => 'true']) }}"
+                class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition">
+                    ✏️ Edit
+                </a>
+            </div>
+
 
             {{-- Tabs --}}
             <div class="mb-6">
