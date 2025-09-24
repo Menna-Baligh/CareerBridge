@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('job-vacancy', JobVacancyController::class);
     Route::post('job-vacancy/{jobVacancy}/restore', [JobVacancyController::class, 'restore'])->name('job-vacancy.restore');
     Route::resource('application', ApplicationController::class);
+    Route::post('application/{application}/restore', [ApplicationController::class, 'restore'])->name('application.restore');
     Route::resource('category', CategoryController::class);
     Route::post('category/{category}/restore', [CategoryController::class, 'restore'])->name('category.restore');
     Route::resource('user', UserController::class);
