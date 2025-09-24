@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobVacany;
 use Illuminate\Http\Request;
 
 class JobVacancyController extends Controller
@@ -9,9 +10,14 @@ class JobVacancyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('job-vacancy.index');
+        $query = JobVacany::latest();
+        if($request->has('archived')){
+            $query = JobVacany::onlyTrashed();
+        }
+        $jobVacancies = $query->paginate(10)->onEachSide(1);
+        return view('job-vacancy.index',compact('jobVacancies'));
     }
 
     /**
@@ -58,6 +64,10 @@ class JobVacancyController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
+    {
+        //
+    }
+    public function restore(string $id)
     {
         //
     }
