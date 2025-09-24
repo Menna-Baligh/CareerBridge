@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\JobApplication;
 
 class ApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('application.index');
+        $query = JobApplication::latest();
+        if($request->has('archived')){
+            $query = JobApplication::onlyTrashed();
+        }
+        $jobApplications = $query->paginate(10)->onEachSide(1);
+        return view('application.index',compact('jobApplications'));
     }
 
     /**
