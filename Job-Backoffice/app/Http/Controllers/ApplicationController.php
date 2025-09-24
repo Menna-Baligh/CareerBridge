@@ -41,7 +41,8 @@ class ApplicationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $application = JobApplication::findOrFail($id);
+        return view('application.show',compact('application'));
     }
 
     /**

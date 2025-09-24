@@ -44,7 +44,7 @@
                                         {{ $jobApplication->user->name }}
                                     </span>
                                 @else
-                                    <a href="{{ route('user.show', $jobApplication->user->id) }}"
+                                    <a href="{{ route('application.show', $jobApplication->id) }}"
                                     class="text-purple-600 hover:text-purple-800">
                                         {{ $jobApplication->user->name }}
                                     </a>
