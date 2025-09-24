@@ -22,7 +22,7 @@ class JobApplication extends Model
         'status',
         'aiGeneratedScore',
         'aiGeneratedFeedback',
-        'jobVacanyId',
+        'jobVacancyId',
         'userId' ,
         'resumeId',
     ];
