@@ -51,6 +51,14 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index')->with('success','User Archived successfully');
+    }
+    public function restore(string $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route('user.index',['archived' => true])->with('success','User Restored successfully');
     }
 }

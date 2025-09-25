@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('category', CategoryController::class);
     Route::post('category/{category}/restore', [CategoryController::class, 'restore'])->name('category.restore');
     Route::resource('user', UserController::class);
+    Route::post('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
