@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -28,15 +30,20 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('user.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+        $user = User::findOrFail($id);
+        $validated['password'] = Hash::make($validated['password']);
+        $user->update($validated);
+        return redirect()->route('user.index')->with('success','User password changed successfully');
     }
 
     /**
