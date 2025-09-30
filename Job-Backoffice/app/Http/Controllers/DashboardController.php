@@ -26,6 +26,13 @@ class DashboardController extends Controller
             'totalApplications' => $totalApplications,
         ];
 
-        return view('dashboard.index',compact('analytics'));
+        // most applied jobs
+        $mostAppliedJobs = JobVacany::withCount('jobApplications as TotalCount')
+                        ->whereNull('deleted_at')
+                        ->orderBy('TotalCount', 'desc')
+                        ->limit(5)
+                        ->get();
+
+        return view('dashboard.index',compact('analytics','mostAppliedJobs'));
     }
 }

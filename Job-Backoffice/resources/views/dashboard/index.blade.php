@@ -39,11 +39,14 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="py-4">Software Engineer</td>
-                                <td class="py-4">Google</td>
-                                <td class="py-4">100</td>
-                            </tr>
+                            @foreach ($mostAppliedJobs as $job)
+                                <tr>
+                                    <td class="py-4">{{ $job->title }}</td>
+                                    <td class="py-4">{{ $job->company->name }}</td>
+                                    <td class="py-4">{{ $job->TotalCount }}</td>
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
