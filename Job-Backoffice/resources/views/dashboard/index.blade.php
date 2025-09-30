@@ -65,12 +65,16 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="py-4">Software Engineer</td>
-                                <td class="py-4">100</td>
-                                <td class="py-4">50</td>
-                                <td class="py-4">50%</td>
-                            </tr>
+                            @foreach ($conversionRates as $job)
+
+                                <tr>
+                                    <td class="py-4">{{ $job->title }}</td>
+                                    <td class="py-4">{{ $job->viewCount }}</td>
+                                    <td class="py-4">{{ $job->TotalCount }}</td>
+                                    <td class="py-4">{{ $job->conversionRate }}%</td>
+                                </tr>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
