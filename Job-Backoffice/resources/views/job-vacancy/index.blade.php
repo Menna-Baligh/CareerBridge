@@ -40,7 +40,9 @@
                 <thead class="bg-purple-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Title</th>
+                        @if(auth()->user()->role == 'admin')
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Company Name</th>
+                        @endif
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Location</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Type</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Salary</th>
@@ -63,7 +65,9 @@
                                 @endif
 
                                 </td>
-                                <td class="px-6 py-4 text-gray-600">{{ $job->company->name }}</td>
+                                @if(auth()->user()->role == 'admin')
+                                    <td class="px-6 py-4 text-gray-600">{{ $job->company->name }}</td>
+                                @endif
                                 <td class="px-6 py-4 text-gray-600">{{ $job->location }}</td>
                                 <td class="px-6 py-4 text-gray-600">{{ $job->type }}</td>
                                 <td class="px-6 py-4 text-gray-600">

@@ -30,7 +30,9 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Applicant Name</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Postion (Job Vacancy)</th>
+                        @if(auth()->user()->role == 'admin')
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Company</th>
+                        @endif
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
                     </tr>
@@ -52,7 +54,9 @@
 
                                 </td>
                                 <td class="px-6 py-4 text-gray-600">{{ $jobApplication->jobVacany->title ?? 'N/A' }}</td>
+                                @if(auth()->user()->role == 'admin')
                                 <td class="px-6 py-4 text-gray-600">{{ $jobApplication->jobVacany->company->name ?? 'N/A' }}</td>
+                                @endif
                                 <td class="px-6 py-4">
                                                 <span class="px-3 py-1 text-xs rounded-full
                                                     @if($jobApplication->status == 'pending') bg-yellow-100 text-yellow-700

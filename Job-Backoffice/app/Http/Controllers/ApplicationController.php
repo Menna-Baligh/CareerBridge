@@ -14,6 +14,11 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $query = JobApplication::latest();
+        if(auth()->user()->role == 'company-owner'){
+            $query->whereHas('jobVacany', function($q){
+                $q->where('companyId', auth()->user()->company->id);
+            });
+        }
         if($request->has('archived')){
             $query = JobApplication::onlyTrashed();
         }

@@ -10,22 +10,27 @@ use App\Http\Controllers\JobVacancyController;
 use App\Http\Controllers\ApplicationController;
 
 
-
+//* shared routes
 Route::middleware(['auth','role:admin,company-owner'])->group(function () {
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('company', CompanyController::class);
-    Route::post('company/{company}/restore', [CompanyController::class, 'restore'])->name('company.restore');
     Route::resource('job-vacancy', JobVacancyController::class);
     Route::post('job-vacancy/{jobVacancy}/restore', [JobVacancyController::class, 'restore'])->name('job-vacancy.restore');
     Route::resource('application', ApplicationController::class);
     Route::post('application/{application}/restore', [ApplicationController::class, 'restore'])->name('application.restore');
+});
+//* company routes
+Route::middleware(['auth','role:company-owner'])->group(function () {
+    Route::get('my-company',[CompanyController::class,'show'])->name('my-company.show');
+    Route::get('my-company/edit',[CompanyController::class, 'edit'])->name('my-company.edit');
+    Route::put('my-company',[CompanyController::class, 'update'])->name('my-company.update');
+});
+//* admin routes
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::resource('category', CategoryController::class);
     Route::post('category/{category}/restore', [CategoryController::class, 'restore'])->name('category.restore');
     Route::resource('user', UserController::class);
     Route::post('user/{user}/restore', [UserController::class, 'restore'])->name('user.restore');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('company', CompanyController::class);
+    Route::post('company/{company}/restore', [CompanyController::class, 'restore'])->name('company.restore');
 });
-
 require __DIR__.'/auth.php';

@@ -17,6 +17,9 @@ class JobVacancyController extends Controller
     public function index(Request $request)
     {
         $query = JobVacany::latest();
+        if(auth()->user()->role == 'company-owner'){
+            $query->where('companyId', auth()->user()->company->id);
+        }
         if($request->has('archived')){
             $query = JobVacany::onlyTrashed();
         }

@@ -17,6 +17,8 @@
                     <p><strong class="text-gray-900">Address:</strong> {{ $company->address }}</p>
                     <p><strong class="text-gray-900">Industry:</strong> {{ $company->industry }}</p>
                     <p><strong class="text-gray-900">Company-owner:</strong> {{ $company->owner->name }}</p>
+                    <p><strong class="text-gray-900">Email:</strong> {{ $company->owner->email }}</p>
+
 
                     <p>
                         <strong class="text-gray-900">Website:</strong>
@@ -31,14 +33,24 @@
             {{-- Actions --}}
             <div class="flex justify-end space-x-3 mb-6">
                 <!-- Cancel Button -->
+                @if(auth()->user()->role === 'admin')
                 <a href="{{ route('company.index') }}"
                     class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition flex items-center">
                     ⬅ Back
                 </a>
+                @endif
+                @if(auth()->user()->role === 'admin')
                 <a href="{{ route('company.edit', ['company' => $company->id,'redirectToShow'=>true]) }}"
                     class="text-sm px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
                     ✏️ Edit
                 </a>
+                @else
+                <a href="{{ route('my-company.edit') }}"
+                    class="text-sm px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                    ✏️ Edit
+                </a>
+                @endif
+                @if(auth()->user()->role === 'admin')
                 <form action="{{ route('company.destroy', $company->id) }}" method="post">
                     @csrf
                     @method('DELETE')
@@ -47,8 +59,9 @@
                         🗑️ Archive
                     </button>
                 </form>
+                @endif
             </div>
-
+            @if(auth()->user()->role === 'admin')
             {{-- Tabs Navigation --}}
             <div class="mb-6">
                 <ul class="flex space-x-4">
@@ -175,6 +188,7 @@
                 </div>
 
             </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
