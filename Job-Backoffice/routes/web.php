@@ -11,7 +11,7 @@ use App\Http\Controllers\ApplicationController;
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','role:admin,company-owner'])->group(function () {
     Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
     Route::resource('company', CompanyController::class);
     Route::post('company/{company}/restore', [CompanyController::class, 'restore'])->name('company.restore');
